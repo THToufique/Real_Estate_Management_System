@@ -98,3 +98,59 @@ CREATE TABLE Transactions (
     FOREIGN KEY (seller_id) REFERENCES Owners(owner_id),
     FOREIGN KEY (agent_id) REFERENCES Agents(agent_id)
 );
+
+-- 7. PROPERTY_FEATURES TABLE
+CREATE TABLE Property_Features (
+    feature_id INT PRIMARY KEY AUTO_INCREMENT,
+    property_id INT NOT NULL,
+    feature_name VARCHAR(100) NOT NULL,
+    feature_value VARCHAR(255),
+    FOREIGN KEY (property_id) REFERENCES Properties(property_id)
+);
+
+-- 8. PROPERTY_IMAGES TABLE
+CREATE TABLE Property_Images (
+    image_id INT PRIMARY KEY AUTO_INCREMENT,
+    property_id INT NOT NULL,
+    image_url VARCHAR(255) NOT NULL,
+    image_description VARCHAR(255),
+    upload_date DATE DEFAULT (CURRENT_DATE),
+    is_primary BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (property_id) REFERENCES Properties(property_id)
+);
+
+-- 9. PROPERTY_MAINTENANCE TABLE
+CREATE TABLE Property_Maintenance (
+    maintenance_id INT PRIMARY KEY AUTO_INCREMENT,
+    property_id INT NOT NULL,
+    description TEXT NOT NULL,
+    maintenance_date DATE NOT NULL,
+    cost DECIMAL(10,2),
+    status ENUM('Pending', 'In Progress', 'Completed') DEFAULT 'Pending',
+    contractor_name VARCHAR(100),
+    FOREIGN KEY (property_id) REFERENCES Properties(property_id)
+);
+
+-- 10. OFFERS TABLE
+CREATE TABLE Offers (
+    offer_id INT PRIMARY KEY AUTO_INCREMENT,
+    property_id INT NOT NULL,
+    customer_id INT NOT NULL,
+    offer_amount DECIMAL(12,2) NOT NULL,
+    offer_date DATE DEFAULT (CURRENT_DATE),
+    status ENUM('Pending', 'Accepted', 'Rejected') DEFAULT 'Pending',
+    notes TEXT,
+    FOREIGN KEY (property_id) REFERENCES Properties(property_id),
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+);
+
+-- 11. PROPERTY_DOCUMENTS TABLE
+CREATE TABLE Property_Documents (
+    document_id INT PRIMARY KEY AUTO_INCREMENT,
+    property_id INT NOT NULL,
+    document_type ENUM('Title', 'Deed', 'Survey', 'Tax Record', 'Other') NOT NULL,
+    document_url VARCHAR(255) NOT NULL,
+    upload_date DATE DEFAULT (CURRENT_DATE),
+    description TEXT,
+    FOREIGN KEY (property_id) REFERENCES Properties(property_id)
+);
