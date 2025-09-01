@@ -7,7 +7,8 @@ $agents = $conn->query("SELECT agent_id, name FROM Agents WHERE status = 'Active
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Add Property</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Property • Real Estate Management System</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -47,15 +48,17 @@ $agents = $conn->query("SELECT agent_id, name FROM Agents WHERE status = 'Active
             <input type="number" name="bedrooms" required>
             <label>Bathrooms</label>
             <input type="number" name="bathrooms" required>
-            <label>Area (sqft)</label.input>
+            <label>Area (sqft)</label>
             <input type="number" step="0.01" name="area_sqft" required>
             <label>Price</label>
             <input type="number" step="0.01" name="price" required>
             <label>Description</label>
-            <textarea name="description"></textarea>
-            <button type="submit" class="btn">Add Property</button>
+            <textarea name="description" placeholder="Property description (optional)"></textarea>
+            <div class="form-actions">
+                <button type="submit" class="btn success">Add Property</button>
+            </div>
         </form>
-        <p><a href="index.php">← Back to List</a></p>
+        <a href="index.php" class="back-link">← Back to List</a>
     </div>
 </body>
 </html>
