@@ -21,6 +21,7 @@ $result = $conn->query("SELECT p.*, a.name AS agent_name, o.name AS owner_name
             <a href="add_property.php" class="btn">➕ Add Property</a>
             <a href="add_agent.php" class="btn">➕ Add Agent</a>
             <a href="add_customer.php" class="btn">➕ Add Customer</a>
+            <a href="add_owner.php" class="btn">➕ Add Owner</a>
             <a href="db_inspector.php" class="btn">🗄️ DB Inspector</a>
             <a href="index.php" class="btn secondary">⟳ Refresh</a>
         </div>
