@@ -265,3 +265,34 @@ BEGIN
     SET NEW.commission_amount = CalculateCommission(NEW.sale_price, agent_commission_rate);
 END //
 DELIMITER ;
+
+
+
+-- Function 2: Get property count by status
+DELIMITER //
+CREATE FUNCTION GetPropertyStatusCount(status_type VARCHAR(20))
+RETURNS INT
+READS SQL DATA
+DETERMINISTIC
+BEGIN
+    DECLARE property_count INT DEFAULT 0;
+    SELECT COUNT(*) INTO property_count 
+    FROM Properties 
+    WHERE status = status_type;
+    RETURN property_count;
+END //
+DELIMITER ;
+
+-- Trigger 2: Update property status when transaction is created
+DELIMITER //
+CREATE TRIGGER UpdatePropertyStatusOnTransaction
+AFTER INSERT ON Transactions
+FOR EACH ROW
+BEGIN
+    IF NEW.transaction_type = 'Sale' THEN
+        UPDATE Properties SET status = 'Sold' WHERE property_id = NEW.property_id;
+    ELSEIF NEW.transaction_type = 'Rent' THEN
+        UPDATE Properties SET status = 'Rented' WHERE property_id = NEW.property_id;
+    END IF;
+END //
+DELIMITER ;
