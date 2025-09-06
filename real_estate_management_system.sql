@@ -296,3 +296,41 @@ BEGIN
     END IF;
 END //
 DELIMITER ;
+
+-- Calculate average property price by type
+DELIMITER //
+CREATE FUNCTION GetAveragePropertyPrice(prop_type VARCHAR(20))
+RETURNS DECIMAL(12,2)
+READS SQL DATA
+DETERMINISTIC
+BEGIN
+    DECLARE avg_price DECIMAL(12,2) DEFAULT 0;
+    SELECT AVG(price) INTO avg_price 
+    FROM Properties 
+    WHERE property_type = prop_type AND status = 'Available';
+    RETURN COALESCE(avg_price, 0);
+END //
+DELIMITER ;
+
+-- Supporting table for price history
+CREATE TABLE Property_Price_History (
+    history_id INT PRIMARY KEY AUTO_INCREMENT,
+    property_id INT NOT NULL,
+    old_price DECIMAL(12,2) NOT NULL,
+    new_price DECIMAL(12,2) NOT NULL,
+    change_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (property_id) REFERENCES Properties(property_id)
+);
+
+-- Trigger 3: Log property price changes
+DELIMITER //
+CREATE TRIGGER LogPropertyPriceChange
+AFTER UPDATE ON Properties
+FOR EACH ROW
+BEGIN
+    IF OLD.price != NEW.price THEN
+        INSERT INTO Property_Price_History (property_id, old_price, new_price, change_date)
+        VALUES (NEW.property_id, OLD.price, NEW.price, NOW());
+    END IF;
+END //
+DELIMITER ;
