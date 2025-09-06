@@ -241,3 +241,27 @@ INSERT INTO Property_Documents (property_id, document_type, document_url, descri
 -- Update property status after transactions
 UPDATE Properties SET status = 'Sold' WHERE property_id IN (1, 3);
 UPDATE Properties SET status = 'Rented' WHERE property_id IN (5, 7);
+
+-- Calculate agent commission
+DELIMITER //
+CREATE FUNCTION CalculateCommission(sale_price DECIMAL(12,2), commission_rate DECIMAL(5,2))
+RETURNS DECIMAL(10,2)
+READS SQL DATA
+DETERMINISTIC
+BEGIN
+    RETURN (sale_price * commission_rate / 100);
+END //
+DELIMITER ;
+
+-- Trigger 1: Automatically calculate commission on transaction insert
+DELIMITER //
+CREATE TRIGGER CalculateTransactionCommission
+BEFORE INSERT ON Transactions
+FOR EACH ROW
+BEGIN
+    DECLARE agent_commission_rate DECIMAL(5,2);
+    SELECT commission_rate INTO agent_commission_rate
+    FROM Agents WHERE agent_id = NEW.agent_id;
+    SET NEW.commission_amount = CalculateCommission(NEW.sale_price, agent_commission_rate);
+END //
+DELIMITER ;
