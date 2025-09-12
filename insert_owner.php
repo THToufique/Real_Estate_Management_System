@@ -17,7 +17,7 @@ $sql = "INSERT INTO Owners (name, phone, email, address)
         VALUES ('$name', '$phone', '$email', '$address')";
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: index.php");
+    header("Location: admin/dashboard.php");
     exit();
 } else {
     echo "❌ Error: " . $conn->error;

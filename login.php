@@ -31,31 +31,45 @@ if ($_POST) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Real Estate System</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="glass-card" style="max-width: 400px; margin: 100px auto;">
-            <h2>Login</h2>
+    <div class="container" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+        <div class="card" style="max-width: 450px; width: 100%; padding: 40px;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="color: #fff; margin-bottom: 10px; white-space: nowrap;">Real Estate System</h1>
+                <h2 style="color: rgba(255,255,255,0.9); font-weight: 400;">Welcome Back</h2>
+            </div>
+            
             <?php if (isset($error)): ?>
-                <div class="error"><?= $error ?></div>
+                <script>
+                Swal.fire({
+                    title: 'Login Failed',
+                    text: '<?= $error ?>',
+                    icon: 'error',
+                    confirmButtonColor: '#667eea'
+                });
+                </script>
             <?php endif; ?>
             
-            <form method="POST">
-                <div class="form-group">
-                    <label>Username/Email:</label>
-                    <input type="text" name="username" required>
+            <form method="POST" style="margin-bottom: 30px;">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.9);">Username/Email:</label>
+                    <input type="text" name="username" required style="width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; background: rgba(255,255,255,0.1); color: #fff; font-size: 16px;">
                 </div>
                 
-                <div class="form-group">
-                    <label>Password:</label>
-                    <input type="password" name="password" required>
+                <div style="margin-bottom: 25px;">
+                    <label style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.9);">Password:</label>
+                    <input type="password" name="password" required style="width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; background: rgba(255,255,255,0.1); color: #fff; font-size: 16px;">
                 </div>
                 
-                <button type="submit" class="btn-primary">Login</button>
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 14px; font-size: 16px; font-weight: 600;">Login</button>
             </form>
             
-            <p><a href="register.php">Don't have an account? Register</a></p>
-            <p><a href="properties.php">Browse Properties (No Login Required)</a></p>
+            <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                <p style="margin-bottom: 10px;"><a href="register.php" style="color: #64b5f6; text-decoration: none;">Don't have an account? Register</a></p>
+                <p><a href="properties.php" style="color: rgba(255,255,255,0.7); text-decoration: none;">Browse Properties (No Login Required)</a></p>
+            </div>
         </div>
     </div>
 </body>

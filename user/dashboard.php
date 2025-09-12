@@ -24,12 +24,13 @@ $user_info = $conn->query("SELECT * FROM Users WHERE user_id = $user_id")->fetch
 </head>
 <body>
     <nav class="user-nav">
-        <div class="nav-brand">Real Estate System</div>
+        <div class="nav-brand">🏠 Real Estate System</div>
         <div class="nav-links">
-            <a href="dashboard.php">Dashboard</a>
+            <a href="dashboard.php">My Dashboard</a>
             <a href="search.php">Search Properties</a>
             <a href="favorites.php">My Favorites</a>
-            <a href="../index.php">All Properties</a>
+            <a href="profile.php">Profile</a>
+            <a href="../properties.php">Browse Properties</a>
             <a href="../includes/auth.php?logout=1">Logout</a>
         </div>
     </nav>

@@ -38,7 +38,7 @@ $sql = "UPDATE Properties SET
         WHERE property_id = $id";
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: index.php");
+    header("Location: admin/manage_properties.php");
     exit();
 } else {
     echo "❌ Error updating record: " . $conn->error;

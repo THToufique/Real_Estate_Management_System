@@ -19,7 +19,7 @@ $sql = "INSERT INTO Agents (name, phone, email, commission_rate, hire_date, expe
         VALUES ('$name', '$phone', '$email', $commission_rate, '$hire_date', $experience_years)";
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: index.php");
+    header("Location: admin/dashboard.php");
     exit();
 } else {
     echo "❌ Error: " . $conn->error;

@@ -43,7 +43,7 @@ $commission_example = 300000 * 3.0 / 100;
         <h1>📊 Functions & Reports</h1>
         
         <div class="actions-left">
-            <a href="index.php" class="btn secondary">← Back to Dashboard</a>
+            <a href="admin/dashboard.php" class="btn secondary">← Back to Admin Dashboard</a>
         </div>
 
         <div class="stats-grid">

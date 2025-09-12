@@ -25,7 +25,7 @@ $conn->query("DELETE FROM Transactions WHERE property_id = $id");
 // Now delete the property
 $sql = "DELETE FROM Properties WHERE property_id = $id";
 if ($conn->query($sql) === TRUE) {
-    header("Location: index.php");
+    header("Location: admin/manage_properties.php");
     exit();
 } else {
     echo "❌ Error deleting record: " . $conn->error;

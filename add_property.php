@@ -66,7 +66,7 @@ $agents = $conn->query("SELECT agent_id, name FROM Agents WHERE status = 'Active
                 <button type="submit" class="btn success">Add Property</button>
             </div>
         </form>
-        <a href="index.php" class="back-link">← Back to List</a>
+        <a href="admin/dashboard.php" class="back-link">← Back to Admin Dashboard</a>
     </div>
 </body>
 </html>

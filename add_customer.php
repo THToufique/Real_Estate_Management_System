@@ -38,7 +38,7 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'admin') {
             </select>
             <button type="submit" class="btn">Add Customer</button>
         </form>
-        <p><a href="index.php">← Back to List</a></p>
+        <p><a href="admin/dashboard.php">← Back to Admin Dashboard</a></p>
     </div>
 </body>
 </html>

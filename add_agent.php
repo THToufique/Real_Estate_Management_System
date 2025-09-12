@@ -33,7 +33,7 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'admin') {
             <input type="number" name="experience_years" required>
             <button type="submit" class="btn">Add Agent</button>
         </form>
-        <p><a href="index.php">← Back to List</a></p>
+        <p><a href="admin/dashboard.php">← Back to Admin Dashboard</a></p>
     </div>
 </body>
 </html>

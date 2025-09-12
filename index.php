@@ -1,6 +1,7 @@
 <?php
 session_start();
 include 'db_connect.php';
+include 'includes/auth.php';
 
 // Redirect to login if not logged in
 if (!isset($_SESSION['user_id'])) {
@@ -8,11 +9,14 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$result = $conn->query("SELECT p.*, a.name AS agent_name, o.name AS owner_name 
-                        FROM Properties p 
-                        LEFT JOIN Agents a ON p.agent_id = a.agent_id 
-                        LEFT JOIN Owners o ON p.owner_id = o.owner_id 
-                        WHERE p.status = 'Available' 
+// Redirect based on user type
+if (isAdmin()) {
+    header("Location: admin/dashboard.php");
+    exit();
+} else {
+    header("Location: user/dashboard.php");
+    exit();
+} 
                         ORDER BY p.property_id");
 
 // Get statistics

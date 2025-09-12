@@ -54,7 +54,7 @@ if (!empty($_POST['sql'])) {
 <body>
     <div class="container">
         <h1>Database Inspector</h1>
-        <p><a href="index.php" class="btn">← Back to Property List</a></p>
+        <p><a href="properties.php" class="btn">← Back to Property List</a></p>
         <?php foreach ($schema as $tbl => $cols): ?>
             <details>
                 <summary><?= $tbl ?></summary>
@@ -109,7 +109,7 @@ if (!empty($_POST['sql'])) {
                 <?php endif; ?>
             <?php endif; ?>
         </div>
-        <p style="margin-top:20px;"><a href="index.php">← Back to Property List</a></p>
+        <p style="margin-top:20px;"><a href="properties.php">← Back to Property List</a></p>
     </div>
 </body>
 </html>

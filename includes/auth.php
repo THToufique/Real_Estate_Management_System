@@ -1,11 +1,13 @@
 <?php
 session_start();
-require_once '../db_connect.php';
+require_once __DIR__ . '/../db_connect.php';
 
 // Handle logout
 if (isset($_GET['logout'])) {
     session_destroy();
-    header("Location: ../index.php");
+    // Check if we're in admin/user directory or root
+    $redirect_path = (strpos($_SERVER['HTTP_REFERER'], '/admin/') !== false || strpos($_SERVER['HTTP_REFERER'], '/user/') !== false) ? '../login.php' : 'login.php';
+    header("Location: $redirect_path");
     exit();
 }
 
@@ -69,7 +71,7 @@ function requireAdmin() {
 
 function logout() {
     session_destroy();
-    header("Location: ../index.php");
+    header("Location: ../login.php");
     exit();
 }
 ?>

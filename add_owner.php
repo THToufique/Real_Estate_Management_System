@@ -32,7 +32,7 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'admin') {
                 <button type="submit" class="btn success">Add Owner</button>
             </div>
         </form>
-        <a href="index.php" class="back-link">← Back to List</a>
+        <a href="admin/dashboard.php" class="back-link">← Back to Admin Dashboard</a>
     </div>
 </body>
 </html>

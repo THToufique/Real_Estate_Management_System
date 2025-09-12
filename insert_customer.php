@@ -20,7 +20,7 @@ $sql = "INSERT INTO Customers (name, phone, email, budget_min, budget_max, prefe
         VALUES ('$name', '$phone', '$email', $budget_min, $budget_max, '$preferred_location', '$customer_type')";
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: index.php");
+    header("Location: admin/dashboard.php");
     exit();
 } else {
     echo "❌ Error: " . $conn->error;

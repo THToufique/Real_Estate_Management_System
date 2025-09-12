@@ -25,7 +25,7 @@ $sql = "INSERT INTO Properties (owner_id, agent_id, address, city, state, zipcod
         VALUES ($owner_id, $agent_id, '$address', '$city', '$state', '$zipcode', '$property_type', $bedrooms, $bathrooms, $area_sqft, $price, '$description')";
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: index.php");
+    header("Location: admin/dashboard.php");
     exit();
 } else {
     echo "❌ Error: " . $conn->error;

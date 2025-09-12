@@ -29,7 +29,7 @@ $users = $conn->query("SELECT * FROM Users ORDER BY created_at DESC");
             <a href="dashboard.php">Dashboard</a>
             <a href="manage_properties.php">Properties</a>
             <a href="manage_users.php">Users</a>
-            <a href="../index.php">View Site</a>
+            <a href="../properties.php" target="_blank">Visit Site</a>
             <a href="../includes/auth.php?logout=1">Logout</a>
         </div>
     </nav>

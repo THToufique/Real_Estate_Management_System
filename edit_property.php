@@ -79,7 +79,7 @@ $agents = $conn->query("SELECT agent_id, name FROM Agents WHERE status = 'Active
             <textarea name="description"><?= htmlspecialchars($property['description']) ?></textarea>
             <button type="submit" class="btn">Save Changes</button>
         </form>
-        <p><a href="index.php">← Back to List</a></p>
+        <p><a href="admin/manage_properties.php">← Back to Manage Properties</a></p>
     </div>
 </body>
 </html>

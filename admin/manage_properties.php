@@ -25,6 +25,7 @@ $properties = $conn->query("SELECT p.*, a.name as agent_name, o.name as owner_na
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Properties - Admin</title>
     <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <nav class="admin-nav">
@@ -33,17 +34,19 @@ $properties = $conn->query("SELECT p.*, a.name as agent_name, o.name as owner_na
             <a href="dashboard.php">Dashboard</a>
             <a href="manage_properties.php">Properties</a>
             <a href="manage_users.php">Users</a>
-            <a href="../index.php">View Site</a>
+            <a href="../properties.php" target="_blank">Visit Site</a>
             <a href="../includes/auth.php?logout=1">Logout</a>
         </div>
     </nav>
 
     <div class="container">
-        <h1>Manage Properties</h1>
-        <a href="../add_property.php" class="btn-primary">Add New Property</a>
+        <div class="page-header">
+            <h1>Manage Properties</h1>
+            <a href="../add_property.php" class="btn-primary">➕ Add New Property</a>
+        </div>
         
-        <div class="properties-table">
-            <table>
+        <div class="properties-table-container">
+            <table class="admin-table">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -59,20 +62,24 @@ $properties = $conn->query("SELECT p.*, a.name as agent_name, o.name as owner_na
                     <?php while ($property = $properties->fetch_assoc()): ?>
                     <tr>
                         <td><?= $property['property_id'] ?></td>
-                        <td><?= $property['title'] ?></td>
-                        <td><?= $property['property_type'] ?></td>
-                        <td>$<?= number_format($property['price']) ?></td>
-                        <td><?= $property['status'] ?></td>
-                        <td><?= $property['agent_name'] ?></td>
+                        <td class="property-title"><?= $property['title'] ?></td>
+                        <td><span class="property-type-badge"><?= $property['property_type'] ?></span></td>
+                        <td class="price">$<?= number_format($property['price']) ?></td>
                         <td>
-                            <a href="../edit_property.php?id=<?= $property['property_id'] ?>" class="btn-small">Edit</a>
+                            <span class="status-badge status-<?= strtolower($property['status']) ?>">
+                                <?= $property['status'] ?>
+                            </span>
+                        </td>
+                        <td><?= $property['agent_name'] ?: 'N/A' ?></td>
+                        <td class="actions">
+                            <a href="../edit_property.php?id=<?= $property['property_id'] ?>" class="btn-small btn-edit">✏️ Edit</a>
                             <form method="POST" style="display:inline;">
                                 <input type="hidden" name="property_id" value="<?= $property['property_id'] ?>">
-                                <button type="submit" name="action" value="toggle_status" class="btn-small">
-                                    <?= $property['status'] == 'Available' ? 'Mark Sold' : 'Mark Available' ?>
+                                <button type="submit" name="action" value="toggle_status" class="btn-small btn-toggle">
+                                    <?= $property['status'] == 'Available' ? '✅ Mark Sold' : '🔄 Mark Available' ?>
                                 </button>
-                                <button type="submit" name="action" value="delete" class="btn-small btn-danger" 
-                                        onclick="return confirm('Delete this property?')">Delete</button>
+                                <button type="button" class="btn-small btn-danger" 
+                                        onclick="confirmDelete(<?= $property['property_id'] ?>, '<?= addslashes($property['title']) ?>')">🗑️ Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -81,6 +88,33 @@ $properties = $conn->query("SELECT p.*, a.name as agent_name, o.name as owner_na
             </table>
         </div>
     </div>
+
+    <script>
+    function confirmDelete(propertyId, propertyTitle) {
+        Swal.fire({
+            title: 'Delete Property?',
+            html: `Are you sure you want to delete:<br><strong>${propertyTitle}</strong>?<br><br>This action cannot be undone.`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Create and submit form
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.innerHTML = `
+                    <input type="hidden" name="property_id" value="${propertyId}">
+                    <input type="hidden" name="action" value="delete">
+                `;
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+    </script>
 
     <style>
     .admin-nav {
