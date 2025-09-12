@@ -1,5 +1,7 @@
 <?php
+session_start();
 include 'db_connect.php';
+
 $result = $conn->query("SELECT p.*, a.name AS agent_name, o.name AS owner_name 
                         FROM Properties p 
                         LEFT JOIN Agents a ON p.agent_id = a.agent_id 
@@ -13,6 +15,10 @@ $stats['total_properties'] = $conn->query("SELECT COUNT(*) as count FROM Propert
 $stats['available_properties'] = $conn->query("SELECT COUNT(*) as count FROM Properties WHERE status = 'Available'")->fetch_assoc()['count'];
 $stats['total_agents'] = $conn->query("SELECT COUNT(*) as count FROM Agents WHERE status = 'Active'")->fetch_assoc()['count'];
 $stats['total_owners'] = $conn->query("SELECT COUNT(*) as count FROM Owners")->fetch_assoc()['count'];
+
+// Check if user is logged in
+$isLoggedIn = isset($_SESSION['user_id']);
+$isAdmin = isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,6 +29,27 @@ $stats['total_owners'] = $conn->query("SELECT COUNT(*) as count FROM Owners")->f
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-brand">Real Estate System</div>
+        <div class="nav-links">
+            <?php if ($isLoggedIn): ?>
+                <?php if ($isAdmin): ?>
+                    <a href="admin/dashboard.php">Admin Panel</a>
+                <?php else: ?>
+                    <a href="user/dashboard.php">My Dashboard</a>
+                    <a href="user/search.php">Search</a>
+                    <a href="user/favorites.php">Favorites</a>
+                <?php endif; ?>
+                <span>Welcome, <?= $_SESSION['username'] ?>!</span>
+                <a href="includes/auth.php?logout=1">Logout</a>
+            <?php else: ?>
+                <a href="login.php">Login</a>
+                <a href="register.php">Register</a>
+            <?php endif; ?>
+        </div>
+    </nav>
+
     <div class="container">
         <h1>Real Estate Management System</h1>
         
