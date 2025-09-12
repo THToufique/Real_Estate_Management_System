@@ -1,5 +1,12 @@
 <?php
+session_start();
 include 'db_connect.php';
+
+// Require admin access
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'admin') {
+    header("Location: login.php");
+    exit();
+}
 
 $name = $conn->real_escape_string($_POST['name']);
 $phone = $conn->real_escape_string($_POST['phone']);

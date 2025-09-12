@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
-$user = "root";
-$password = "";
+$user = "webapp";
+$password = "password123";
 $database = "RealEstateDB";
 
 $conn = new mysqli($host, $user, $password, $database);

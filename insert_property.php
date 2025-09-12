@@ -1,5 +1,12 @@
 <?php
+session_start();
 include 'db_connect.php';
+
+// Require admin access
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'admin') {
+    header("Location: login.php");
+    exit();
+}
 
 $owner_id = intval($_POST['owner_id']);
 $agent_id = empty($_POST['agent_id']) ? 'NULL' : intval($_POST['agent_id']);

@@ -1,6 +1,16 @@
 <?php
 require_once 'includes/auth.php';
 
+// Redirect if already logged in
+if (isLoggedIn()) {
+    if (isAdmin()) {
+        header("Location: admin/dashboard.php");
+    } else {
+        header("Location: user/dashboard.php");
+    }
+    exit();
+}
+
 if ($_POST) {
     if (login($_POST['username'], $_POST['password'])) {
         if (isAdmin()) {
@@ -45,7 +55,7 @@ if ($_POST) {
             </form>
             
             <p><a href="register.php">Don't have an account? Register</a></p>
-            <p><a href="index.php">Back to Properties</a></p>
+            <p><a href="properties.php">Browse Properties (No Login Required)</a></p>
         </div>
     </div>
 </body>

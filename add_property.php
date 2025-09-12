@@ -1,5 +1,13 @@
 <?php
+session_start();
 include 'db_connect.php';
+
+// Require admin access
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'admin') {
+    header("Location: login.php");
+    exit();
+}
+
 $owners = $conn->query("SELECT owner_id, name FROM Owners");
 $agents = $conn->query("SELECT agent_id, name FROM Agents WHERE status = 'Active'");
 ?>

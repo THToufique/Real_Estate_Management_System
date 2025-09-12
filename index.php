@@ -2,6 +2,12 @@
 session_start();
 include 'db_connect.php';
 
+// Redirect to login if not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $result = $conn->query("SELECT p.*, a.name AS agent_name, o.name AS owner_name 
                         FROM Properties p 
                         LEFT JOIN Agents a ON p.agent_id = a.agent_id 

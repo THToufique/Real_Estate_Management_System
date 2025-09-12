@@ -1,0 +1,27 @@
+[Fri Sep 12 23:41:45 2025] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Fri Sep 12 23:41:50 2025] 127.0.0.1:45392 Accepted
+[Fri Sep 12 23:41:50 2025] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/ripp3r/rems/db_connect.php:7
+Stack trace:
+#0 /home/ripp3r/rems/db_connect.php(7): mysqli->__construct()
+#1 /home/ripp3r/rems/index.php(3): include('...')
+#2 {main}
+  thrown in /home/ripp3r/rems/db_connect.php on line 7
+[Fri Sep 12 23:41:50 2025] 127.0.0.1:45392 [500]: GET / - Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' in /home/ripp3r/rems/db_connect.php:7
+Stack trace:
+#0 /home/ripp3r/rems/db_connect.php(7): mysqli->__construct()
+#1 /home/ripp3r/rems/index.php(3): include('...')
+#2 {main}
+  thrown in /home/ripp3r/rems/db_connect.php on line 7
+[Fri Sep 12 23:41:50 2025] 127.0.0.1:45392 Closing
+[Fri Sep 12 23:42:14 2025] 127.0.0.1:48590 Accepted
+[Fri Sep 12 23:42:14 2025] 127.0.0.1:48590 [200]: GET /
+[Fri Sep 12 23:42:14 2025] 127.0.0.1:48590 Closing
+[Fri Sep 12 23:42:27 2025] 127.0.0.1:46406 Accepted
+[Fri Sep 12 23:42:27 2025] 127.0.0.1:46406 [200]: GET /
+[Fri Sep 12 23:42:27 2025] 127.0.0.1:46406 Closing
+[Fri Sep 12 23:42:27 2025] 127.0.0.1:46418 Accepted
+[Fri Sep 12 23:42:27 2025] 127.0.0.1:46418 [200]: GET /css/style.css
+[Fri Sep 12 23:42:27 2025] 127.0.0.1:46418 Closing
+[Fri Sep 12 23:42:27 2025] 127.0.0.1:46426 Accepted
+[Fri Sep 12 23:42:27 2025] 127.0.0.1:46426 [404]: GET /favicon.ico - No such file or directory
+[Fri Sep 12 23:42:27 2025] 127.0.0.1:46426 Closing

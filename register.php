@@ -58,6 +58,7 @@ if ($_POST) {
             </form>
             
             <p><a href="login.php">Already have an account? Login</a></p>
+            <p><a href="properties.php">Browse Properties (No Login Required)</a></p>
         </div>
     </div>
 </body>
